@@ -6,9 +6,8 @@ public class BloomFilter {
     //we use many different hash functions along with size number of bites to minimise probability of false positives cases
     private final Function<String, Integer>[] HASH_FUNCTIONS = new Function[]{
             Object::hashCode,
-            this::sascii,
-            this::sfold
-
+            this::getAsciiHash,
+            this::getStringFoldHash
     };
 
     private final BitSet bitSet;
@@ -35,24 +34,25 @@ public class BloomFilter {
         return true;
     }
 
-    private int sascii(Object o) {
+    // ASCII hash function
+    private int getAsciiHash(Object o) {
         String s = o.toString();
         char[] chars = s.toCharArray();
-
-        int i, sum;
-        for (sum = 0, i = 0; i < s.length(); i++) {
-            sum += chars[i];
+        int i, hashSum;
+        for (hashSum = 0, i = 0; i < s.length(); i++) {
+            hashSum += chars[i];
         }
-        return Math.abs(sum % (Integer.MAX_VALUE / 2));
+        return Math.abs(hashSum % (Integer.MAX_VALUE / 2));
     }
 
-    private int sfold(Object o) {
+    // String Folding hash function
+    private int getStringFoldHash(Object o) {
         String s = o.toString();
-        long sum = 0, mul = 1;
+        long hashSum = 0, mul = 1;
         for (int i = 0; i < s.length(); i++) {
             mul = (i % 4 == 0) ? 1 : mul * 256;
-            sum += s.charAt(i) * mul;
+            hashSum += s.charAt(i) * mul;
         }
-        return (int) (Math.abs(sum) % (Integer.MAX_VALUE / 2));
+        return (int) (Math.abs(hashSum) % (Integer.MAX_VALUE / 2));
     }
 }
