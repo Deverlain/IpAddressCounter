@@ -3,7 +3,7 @@ import java.util.function.Function;
 
 public class BloomFilter {
 
-    //we use different hash functions for the bloom filter to minimise probability of false positives cases
+    //we use many different hash functions along with size number of bites to minimise probability of false positives cases
     private final Function<String, Integer>[] HASH_FUNCTIONS = new Function[]{
             Object::hashCode,
             this::sascii,
