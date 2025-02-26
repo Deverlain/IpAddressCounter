@@ -24,7 +24,7 @@ public class BloomFilter {
         }
     }
 
-    public boolean mightContain(String element) {
+    public boolean contain(String element) {
         for (Function<String, Integer> hashFunction : HASH_FUNCTIONS) {
             int hash = hashFunction.apply(element);
             if (!bitSet.get(Math.abs(hash) % bitSet.size())) {
