@@ -20,8 +20,8 @@ public class IpAddrCounter {
                     numberOfDifferentAddreses++;
                 }
             }
-            System.out.println("Total number of different ip's: " + numberOfDifferentAddreses);
             final long endTime = System.currentTimeMillis();
+            System.out.println("Total number of different ip's: " + numberOfDifferentAddreses);
             System.out.println("Total execution time: " + (endTime - startTime) + "ms");
         } catch (Exception e) {
             System.out.println("Where was some issue during reading the file");
