@@ -5,11 +5,11 @@ public class IpAddrCounter {
 
 
     //we use as bigger the size as possible along with number of hash functions to minimise the bloom filter probability of false positives cases
-
-    private static final int SIZE = (Integer.MAX_VALUE / 2) + 1;
+    private static final int SIZE = 256 * 256 * 256 * 128 - 1;
 
     public static void main(String[] args) {
         BloomFilter bloomFilter = new BloomFilter(SIZE);
+        final long startTime = System.currentTimeMillis();
         try {
             BufferedReader bufferReader = new BufferedReader(new FileReader(IpAddrCounter.class.getResource("ListOfIps.txt").getFile()));
             String ipAddress;
@@ -20,7 +20,9 @@ public class IpAddrCounter {
                     numberOfDifferentAddreses++;
                 }
             }
-            System.out.println(numberOfDifferentAddreses);
+            System.out.println("Total number of different ip's: " + numberOfDifferentAddreses);
+            final long endTime = System.currentTimeMillis();
+            System.out.println("Total execution time: " + (endTime - startTime) + "ms");
         } catch (Exception e) {
             System.out.println("Where was some issue during reading the file");
             e.printStackTrace();

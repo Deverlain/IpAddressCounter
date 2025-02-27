@@ -42,7 +42,7 @@ public class BloomFilter {
         for (hashSum = 0, i = 0; i < s.length(); i++) {
             hashSum += chars[i];
         }
-        return Math.abs(hashSum % (Integer.MAX_VALUE / 2));
+        return Math.abs(hashSum % (Integer.MAX_VALUE - 1));
     }
 
     // String Folding hash function
@@ -53,6 +53,6 @@ public class BloomFilter {
             mul = (i % 4 == 0) ? 1 : mul * 256;
             hashSum += s.charAt(i) * mul;
         }
-        return (int) (Math.abs(hashSum) % (Integer.MAX_VALUE / 2));
+        return (int) (Math.abs(hashSum) % (Integer.MAX_VALUE -1));
     }
 }
